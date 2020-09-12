@@ -23,4 +23,9 @@ class Empleado extends Model
  public function jefe_directo(){
      return $this->belongsTo('App\Empleado', 'ReportsTo');
  }
+
+ //relacion empleado-clientes
+ public function clientes(){
+     return $this->hasMany('App\Customer', 'SupportRepId');
+ }
 }

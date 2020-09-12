@@ -7,14 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Lista de Empleados</h1>
+    <h1>Lista de Empleados</h1> 
+    <a class="btn btn-dark" href="{{  url('empleados/create') }}">
+    Nuevo Empleado
+    </a>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <td>Nombre Completo</td>
                 <td>Cargo</td>
-                <td>Patroncito</td>
-                <td>Fecha de Nacimiento</td>
+                <td>Email</td>
+                <td>Detalles</td>
+               <!--  <td>Jefe</td>
+               <td>Fecha de Nacimiento</td>
                 <td>Fecha Contratación</td>
                 <td>Dirección</td>
                 <td>Ciudad</td> -->
@@ -23,13 +28,13 @@
         <tbody>
             @foreach($empleados as $empleado)
                 <tr>
-                    <td>{{$empleado->FirstName}}
-                         <strong class="text-danger"> {{$empleado->LastName}}</strong></td>
+                    <td>{{$empleado->FirstName}} <strong class="text-primary"> {{$empleado->LastName}}</strong></td>
                     <td>{{$empleado->Title}}</td>
                     <td>{{$empleado->Email}}</td>
                     <td>
-                    <a href='{{  url("empleados/$empleado->EmployeeId")   }}'   class="btn btn-success"> Ver Detalles    </a>                    </td>
-                    <td>
+                         <a href='{{  url("empleados/$empleado->EmployeeId")   }}' class="btn btn-success">Ver Detalles</a>
+                    </td>
+                   <!--
                         @if($empleado->jefe_directo()->get()->isNotEmpty())
                         <strong class="text-success">
                         {{$empleado->jefe_directo()->first()->LastName}}

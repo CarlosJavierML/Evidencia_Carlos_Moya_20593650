@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Empleado;
 
 class EmpleadoController extends Controller
 {
@@ -17,6 +18,7 @@ class EmpleadoController extends Controller
        $empleados =\App\Empleado::paginate(3);
        //mostrar una vista con los empleados
        return view('empleados.index')->with("empleados", $empleados);
+    
     }
 
     /**
@@ -26,7 +28,17 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        //Seleccione los empleados cuyo id sea 1,2,6
+        $managers = Empleado::find( [1,2,6]);
+
+        //selecione los cargos sin repetir
+        $cargos = Empleado::select('TItle')->distinct()->get();
+
+        //mostrar la viusta de registrar o crear empleado
+        return view("empleados.insert")
+                ->with("jefes" , $managers)
+                ->with("cargos" , $cargos);
+
     }
 
     /**
@@ -48,8 +60,14 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        //Modificar detalle del empleado cuyo $id es del parametro
-        echo $id;
+        //Mostrar detalle del empleado cuyo $id es del parametro
+        $empleado = \App\Empleado::with('subalternos')
+                                ->with('clientes')
+                                ->with('jefe_directo')
+                                ->find($id);// SELECT * FROM EMPLOYEE WHERE EMPLOYEEID=$ID
+       
+        // Enviar el odjecto a la vista
+        return view('empleados.show')->with("empleado", $empleado);
     }
 
     /**

@@ -88,3 +88,6 @@ Route::get('artistas/create', 'ArtistaController@create');
 Route::post('artistas/store', 'ArtistaController@store');
 
 Route::resource('empleados', 'EmpleadoController');
+Route::get('master', function(){ 
+    return view('layouts.master'); 
+});
