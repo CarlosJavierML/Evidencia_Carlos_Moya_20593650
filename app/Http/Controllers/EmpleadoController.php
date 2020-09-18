@@ -49,7 +49,22 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //crear un objeto de tipo Empleado ;
+        $empleado = new Empleado();
+        // asignar valores a un atributo
+        $empleado->FirstName = $request->input("nombre");
+        $empleado->LastName = $request->input("apellido");
+        $empleado->ReportsTo = $request->input("jefe");
+        $empleado->Title = $request->input("cargo");
+        $empleado->BirthDate = $request->input("nacimiento");
+        $empleado->HireDate = $request->input("contrato");
+        $empleado->Email = $request->input("email");
+        $empleado->Address = $request->input("direccion");
+        $empleado->City = $request->input("ciudad");
+        //registrar el objeto de la base de datos:
+        $empleado->save();
+
+        return redirect("empelados/create")->with("mensaje", "Empleado registrado");
     }
 
     /**

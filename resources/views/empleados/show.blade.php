@@ -3,57 +3,28 @@
 
 <!-- contenido vistas-->
 @section('contenido_vistas')
+<br>
+<a class="btn btn-success" href="{{  url('empleados') }}">
+    Regresar
+    </a>
+<br>
+ <br>
+<div class="row">
+<div class="col-md-6 col-lg-12 col-xl-6">
 
-<!--BEGIN FIRST CARD-->
-<div class="card border-success mb-3 text-center">
-  <div class="card-header">
-    <a class="collapsed card-link text-center" data-toggle="collapse" href="#collapseFIRST">
-		<h5 class="card-title text-dark">First Fold</h5>
-		<h6 class="card-subtitle mb-2 text-muted">Subtitle</h6>
-	</a>
-  </div>
-  <div id="collapseFIRST" class="collapse" data-parent="#accordion">
-    <div class="card-body text-left">
-    
-	  <table class="table table-hover group table-striped">
-	  	<tbody>   
-	  	  <tr>
-	  		<td>Title:</td>
-	  		<td>Value</td>
-	  	 </tr>
-	  			
-	  		<tr>
-	  		<td>Title:</td>
-	  		<td>Value</td>
-	  	 </tr>
-	  
-	  		<tr>
-	  		<td>Title:</td>
-	  		<td>Value</td>
-	  	 </tr>
-	  	</tbody>
-	  	</table>
+<div class="accordion"  id="accordionExample">
+  <div class="card border-primary mb-3 text-center">
+    <div class="card-header" id="headingOne">
+      <h1 class="mb-0">
+        <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <h2 class="card-title text-dark">Informacion del empleado:</h2>
+		    <h4 class="card-subtitle mb-2 text-muted">{{$empleado->FirstName}} {{$empleado->LastName}}</h4>
+        </button>
+      </h1>
     </div>
-	
-	<div class="card-footer text-muted">
-		<a role="button" target="_BLANK" href="#" class="btn btn-sm btn-info"><font style="font-size: 8px;">Link</font></a>
-		<a role="button" target="_BLANK" href="#" class="btn btn-sm btn-info"><font style="font-size: 8px;">Link</font></a>
-	</div>
-	
-   </div>
-</div>
-<!--END FIRST CARD-->
-<h2>Informacion del empleado:</h2>
-
-
-
-
-    <div class="card" style="width:400px">
-    <div class="card-header">
-    {{$empleado->FirstName}} {{$empleado->LastName}}
-
-            <div class="card-body">
-                <h4 class="card-title">Cargo: {{ $empleado->Title}}</h4>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+      <h4 class="card-title">Cargo: {{ $empleado->Title}}</h4>
                 <ul class="list-group list-group-flush">
                 @if($empleado->jefe_directo)
                 <li class="list-group-item"> jefe Directo: 
@@ -71,12 +42,29 @@
                 <liv class="list-group-item">
                 Fecha Contratación: {{ $empleado->HireDate->toFormattedDateString() }}
                 </liv>
-                </ul>           
+                </ul>        
+              </div>
     </div>
-    </div>
-
+  </div>
+</div>
+</div>
     <br />
-    @if( $empleado->subalternos->count() !==0 )
+    <div class="col-md-6 col-lg-12 col-xl-6">
+    
+    <div class="accordion"  id="accordionExample">
+  <div class="card border-success mb-3 text-center">
+    <div class="card-header" id="headingTwo">
+      <h1 class="mb-0">
+        <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+        <h2 class="card-title text-dark">Subalternos:</h2>
+        <h4 class="card-subtitle mb-2 text-muted">------------</h4>
+        </button>
+      </h1>
+    </div>
+    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+              
+      @if( $empleado->subalternos->count() !==0 )
     <h2 class="text-success"> subalternos: </h2>
     <ul class="list-group list-group-flusg">
     @foreach($empleado->subalternos as $subalterno)
@@ -84,10 +72,47 @@
     </li>
 
     @endforeach
-    </ul>
 
     @else
-    <h2 class="text-danger"> El empleado no tiene subalternos </2>
+    <h2 class="text-danger"> El empleado no tiene subalternos </h2>
     @endif
+    </ul>
+    <br>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<br>
+<div class="row">
+
+<i class="text-center" aria-hidden="true"><h1>Lista de clientes</h1> 
+</i>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nombres</th>
+      <th scope="col">Compañia</th>
+      <th scope="col">Ciudad</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  @if($empleado->clientes)
+  @foreach($empleado->clientes as $cliente)
+    <tr>
+      <td>{{$cliente->FirstName}} <strong class="text-primary"> {{$cliente->LastName}}</strong></td>
+      <td>{{$cliente->Company}}</td>
+      <td>{{$cliente->City}}</td>
+      <td>{{$cliente->Email}}</td>
+    </tr>
+    @endforeach
+    @else
+    <h2 class="text-danger"> El empleado no tiene clientes </2>
+    @endif
+  </tbody>
+</table>
+</div>
 
 @endsection

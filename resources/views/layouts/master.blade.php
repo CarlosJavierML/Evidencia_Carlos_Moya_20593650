@@ -12,9 +12,16 @@
 
   <!-- Bootstrap core CSS -->
   <link href="{{ asset('bootstrap/css/bootstrap.min.css') }} " rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- yield para colocar una hoja de estilo-->
+
+@yield('estilos-particulares')
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+  <!-- yield para liberias particulares dependientes de jquery-->
+  @yield('j-deps')
+  <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }} "></script>
 </head>
 
 <body>
@@ -54,9 +61,7 @@
    
   </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{{ asset('jquery/jquery.slim.min.js') }} "></script>
-  <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }} "></script>
+
 
 </body>
 

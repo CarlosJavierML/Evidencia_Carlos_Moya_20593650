@@ -1,3 +1,8 @@
+<!--heredar la masterpage en esta vista-->
+@extends('layouts.master')
+
+<!-- contenido vistas-->
+@section('contenido_vistas')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,3 +64,4 @@
     {{$empleados->links() }}
 </body>
 </html>
+@endsection
