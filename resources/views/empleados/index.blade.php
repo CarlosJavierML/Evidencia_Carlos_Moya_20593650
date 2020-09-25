@@ -23,11 +23,7 @@
                 <td>Cargo</td>
                 <td>Email</td>
                 <td>Detalles</td>
-               <!--  <td>Jefe</td>
-               <td>Fecha de Nacimiento</td>
-                <td>Fecha Contratación</td>
-                <td>Dirección</td>
-                <td>Ciudad</td> -->
+                 <td>Actualizar</td>
             </tr>
         </thead>
         <tbody>
@@ -39,22 +35,9 @@
                     <td>
                          <a href='{{  url("empleados/$empleado->EmployeeId")   }}' class="btn btn-success">Ver Detalles</a>
                     </td>
-                   <!--
-                        @if($empleado->jefe_directo()->get()->isNotEmpty())
-                        <strong class="text-success">
-                        {{$empleado->jefe_directo()->first()->LastName}}
-                        {{$empleado->jefe_directo()->first()->LastName}}
-                        </strong>
-                        @else
-                        <strong class="text-warning">
-                            {{"Empleado Sin jefe directo"}}
-                        </strong>
-                        @endif
-                    </td> -->
-                  <!--  <td>{{$empleado->BirthDate->isoFormat("MMMM Do YY")}}</td> -->
-                    <!-- <td>{{$empleado->HireDate->isoFormat("MMMM Do YY")}}</td> -->
-                   <!-- <td >{{ $empleado->Address }}</td> -->
-                   <!-- <td>{{ $empleado->City }}</td> -->
+                    <td>
+                         <a href="{{  url('empleados/'.$empleado->EmployeeId.'/edit')   }}" class="btn btn-info">Actualizar</a>
+                    </td>
 
                 </tr>
             @endforeach

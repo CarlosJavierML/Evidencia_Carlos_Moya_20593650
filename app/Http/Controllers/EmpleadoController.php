@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Empleado;
+use Illuminate\Support\Facades\Validator;
 
 class EmpleadoController extends Controller
 {
@@ -93,7 +94,21 @@ class EmpleadoController extends Controller
      */
     public function edit($id)
     {
-        //
+        //selecionar el empleado a editar
+        $empleado = Empleado::find($id);
+
+
+        //Seleccione los empleados cuyo id sea 1,2,6
+        $managers = Empleado::find( [1,2,6]);
+
+        //selecione los cargos sin repetir
+        $cargos = Empleado::select('TItle')->distinct()->get();
+
+         //mostrar la viusta de registrar o crear empleado
+         return view("empleados.edit")
+         ->with("empleado" , $empleado)
+         ->with("jefes" , $managers)
+         ->with("cargos" , $cargos);
     }
 
     /**
@@ -105,7 +120,37 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $regla= [
+                "jefe" => "required"
+            ];
+
+            //crear objecto validador
+            $validador = Validator::make($request->all(), $regla);
+
+            //validar
+            if($validador->fails()){
+                return redirect("empleados/$id/edit")
+                ->withErrors($validador);
+            }
+
+        // Selecionar al empleado por id    que se va actualizar
+        $empleado = Empleado::find($id);
+        // asignar atributos
+        $empleado->FirstName = $request->input("nombre");
+        $empleado->LastName = $request->input("apellido");
+        $empleado->ReportsTo = $request->input("jefe");
+        $empleado->Title = $request->input("cargo");
+        $empleado->BirthDate = $request->input("nacimiento");
+        $empleado->HireDate = $request->input("contrato");
+        $empleado->Email = $request->input("email");
+        $empleado->Address = $request->input("direccion");
+        $empleado->City = $request->input("ciudad");
+        //guardar
+        $empleado->save();
+        return redirect("empleados/$empleado->EmployeeId/edit")
+        ->with( "mensaje" , "empleado actualizado");
+         
+
     }
 
     /**
